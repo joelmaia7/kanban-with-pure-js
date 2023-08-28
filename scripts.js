@@ -11,7 +11,11 @@ const $editingModeTitle = document.getElementById('editingModeTitle');
 const $creationModeBtn = document.getElementById('creationModeBtn');
 const $editingModeBtn = document.getElementById('editingModeBtn');
 
-var taskList = [];
+var tasks = localStorage.getItem("tasks");
+
+var taskList = tasks ? JSON.parse(tasks) : [];
+
+generateCards();
 
 function openModal(data_column) {
   $modal.style.display = "flex";
@@ -113,6 +117,8 @@ function createTask() {
 
   taskList.push(newTask);
 
+  localStorage.setItem("tasks", JSON.stringify(taskList));
+
   closeModal();
   generateCards();
 }
@@ -132,6 +138,8 @@ function updateTask() {
 
   taskList[index] = task;
 
+  localStorage.setItem("tasks", JSON.stringify(taskList));
+
   closeModal();
   generateCards();
 }
@@ -147,6 +155,8 @@ function changeColumn(task_id, column_id) {
       };
     });
   }
+
+  localStorage.setItem("tasks", JSON.stringify(taskList));
 
   generateCards();
 }
